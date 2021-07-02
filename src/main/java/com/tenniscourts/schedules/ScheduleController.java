@@ -2,6 +2,8 @@ package com.tenniscourts.schedules;
 
 import com.tenniscourts.config.BaseRestController;
 import lombok.AllArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
@@ -11,6 +13,11 @@ import java.util.List;
 
 @AllArgsConstructor
 public class ScheduleController extends BaseRestController {
+	
+	@Autowired
+	public ScheduleController(ScheduleService scheduleService) {
+		this.scheduleService = scheduleService;
+	}
 
     private final ScheduleService scheduleService;
 

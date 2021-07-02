@@ -15,8 +15,49 @@ public class ScheduleDTO {
     private Long id;
 
     private TennisCourtDTO tennisCourt;
+    
 
-    @NotNull
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public TennisCourtDTO getTennisCourt() {
+		return tennisCourt;
+	}
+
+	public void setTennisCourt(TennisCourtDTO tennisCourt) {
+		this.tennisCourt = tennisCourt;
+	}
+
+	public Long getTennisCourtId() {
+		return tennisCourtId;
+	}
+
+	public void setTennisCourtId(Long tennisCourtId) {
+		this.tennisCourtId = tennisCourtId;
+	}
+
+	public LocalDateTime getStartDateTime() {
+		return startDateTime;
+	}
+
+	public void setStartDateTime(LocalDateTime startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+
+	public LocalDateTime getEndDateTime() {
+		return endDateTime;
+	}
+
+	public void setEndDateTime(LocalDateTime endDateTime) {
+		this.endDateTime = endDateTime;
+	}
+
+	@NotNull
     private Long tennisCourtId;
 
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm")
