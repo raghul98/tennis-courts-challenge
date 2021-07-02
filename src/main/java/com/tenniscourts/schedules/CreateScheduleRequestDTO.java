@@ -13,8 +13,29 @@ public class CreateScheduleRequestDTO {
 
     @NotNull
     private Long tennisCourtId;
+    
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    public Long getTennisCourtId() {
+		return tennisCourtId;
+	}
+
+
+	public void setTennisCourtId(Long tennisCourtId) {
+		this.tennisCourtId = tennisCourtId;
+	}
+
+
+	public LocalDateTime getStartDateTime() {
+		return startDateTime;
+	}
+
+
+	public void setStartDateTime(LocalDateTime startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+
+
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @NotNull
     private LocalDateTime startDateTime;
 

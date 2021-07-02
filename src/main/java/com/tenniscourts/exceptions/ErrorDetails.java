@@ -15,4 +15,10 @@ public class ErrorDetails {
     private LocalDateTime timestamp;
     private String message;
     private String details;
+    
+    public ErrorDetails(LocalDateTime time,String msg,String des) {
+    	timestamp = time;
+    	message = msg;
+    	details = des;
+    }
 }
