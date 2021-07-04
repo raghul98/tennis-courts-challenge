@@ -2,6 +2,9 @@ package com.tenniscourts.reservations;
 
 import com.tenniscourts.exceptions.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,13 +14,15 @@ import java.time.temporal.ChronoUnit;
 @Service
 @AllArgsConstructor
 public class ReservationService {
-
+	@Autowired
     private final ReservationRepository reservationRepository;
-
+	@Autowired
     private final ReservationMapper reservationMapper;
 
     public ReservationDTO bookReservation(CreateReservationRequestDTO createReservationRequestDTO) {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+    	//Changed from tenniscourtservice add tenniscourt
+    	return reservationMapper.map(reservationRepository.saveAndFlush(reservationMapper.map(createReservationRequestDTO)));
     }
 
     public ReservationDTO findReservation(Long reservationId) {
