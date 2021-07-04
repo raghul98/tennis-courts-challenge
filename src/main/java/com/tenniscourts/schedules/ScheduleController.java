@@ -5,20 +5,18 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+@RestController
 @AllArgsConstructor
 public class ScheduleController extends BaseRestController {
 	
 	@Autowired
-	public ScheduleController(ScheduleService scheduleService) {
-		this.scheduleService = scheduleService;
-	}
-
     private final ScheduleService scheduleService;
 
     //TODO: implement rest and swagger
