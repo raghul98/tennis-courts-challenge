@@ -3,7 +3,9 @@ package com.tenniscourts.reservations;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.data.repository.NoRepositoryBean;
 
+@NoRepositoryBean
 @Mapper(componentModel = "spring")
 public interface ReservationMapper {
 

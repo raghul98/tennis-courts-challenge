@@ -22,12 +22,13 @@ public class ScheduleService {
 
     public ScheduleDTO addSchedule(Long tennisCourtId, CreateScheduleRequestDTO createScheduleRequestDTO) {
         //TODO: implement addSchedule
-        return null;
+    	return scheduleMapper.map(scheduleRepository.saveAndFlush(scheduleMapper.map(createScheduleRequestDTO)));
+//        return null;
     }
 
     public List<ScheduleDTO> findSchedulesByDates(LocalDateTime startDate, LocalDateTime endDate) {
         //TODO: implement
-        return null;
+    	return scheduleMapper.map(scheduleRepository.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(startDate,endDate));
     }
 
     public ScheduleDTO findSchedule(Long scheduleId) {

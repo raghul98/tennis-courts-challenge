@@ -11,11 +11,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+
 @Service
 @AllArgsConstructor
 public class ReservationService {
 	@Autowired
     private final ReservationRepository reservationRepository;
+	
 	@Autowired
     private final ReservationMapper reservationMapper;
 
@@ -79,19 +81,24 @@ public class ReservationService {
     /*TODO: This method actually not fully working, find a way to fix the issue when it's throwing the error:
             "Cannot reschedule to the same slot.*/
     public ReservationDTO rescheduleReservation(Long previousReservationId, Long scheduleId) {
-        Reservation previousReservation = cancel(previousReservationId);
-
+    	//Gets the previous reservation by calling findbyid() 
+        Reservation previousReservation = reservationRepository.findById(previousReservationId).orElseThrow(() ->
+        new EntityNotFoundException("Reservation not found.")
+    );
+        //compares scheduleid to the previous schedule id
         if (scheduleId.equals(previousReservation.getSchedule().getId())) {
             throw new IllegalArgumentException("Cannot reschedule to the same slot.");
         }
-
-        previousReservation.setReservationStatus(ReservationStatus.RESCHEDULED);
-        reservationRepository.save(previousReservation);
-
+        //validates updation with previousreservation
+        this.validateCancellation(previousReservation);
+        //updates reservation with new data
+        previousReservation = this.updateReservation(previousReservation, getRefundValue(previousReservation), ReservationStatus.RESCHEDULED);
+        //creates new reservation and books it
         ReservationDTO newReservation = bookReservation(CreateReservationRequestDTO.builder()
                 .guestId(previousReservation.getGuest().getId())
                 .scheduleId(scheduleId)
                 .build());
+        //now set previous resr with previousresr
         newReservation.setPreviousReservation(reservationMapper.map(previousReservation));
         return newReservation;
     }
