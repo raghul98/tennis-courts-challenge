@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/reservations")
-@Api(value = "tenniscourt_reservation")
 public class ReservationController extends BaseRestController {
 	
 	@Autowired	

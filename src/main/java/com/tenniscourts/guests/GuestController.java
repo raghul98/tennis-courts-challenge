@@ -53,7 +53,7 @@ public class GuestController extends BaseRestController {
         return ResponseEntity.ok(guestService.findGuestByName(name));
     }
     
-    @GetMapping("/")
+    @GetMapping
     @ApiOperation(value="Finds all Guests",notes="Finds all the available Guests")
 	@ApiResponses(value = {
 	        @ApiResponse(code = 200, message = "Search Successfull")})
@@ -62,7 +62,7 @@ public class GuestController extends BaseRestController {
     }
     
     @DeleteMapping("/{id}")
-    @ApiOperation(value="Finds all Guests",notes="Delete the Guest by getting the id")
+    @ApiOperation(value="Deletes a Guest",notes="Delete the Guest by getting the id")
 	@ApiResponses(value = {
 	        @ApiResponse(code = 200, message = "Deletion Successfull")})
     public ResponseEntity<GuestDTO> deleteGuest( @PathVariable Long guestId) {
