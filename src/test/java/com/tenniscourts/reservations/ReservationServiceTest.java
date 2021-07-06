@@ -1,8 +1,5 @@
 package com.tenniscourts.reservations;
 
-
-
-
 import static java.util.stream.IntStream.range;
 import java.util.*;
 import org.apache.commons.*;
@@ -14,8 +11,7 @@ import static org.mockito.ArgumentCaptor.forClass;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -75,15 +71,16 @@ public class ReservationServiceTest {
 
     @Mock
     private GuestService guestService;
+    private TennisCourt tenniscourt;
+    private ReservationDTO reservationDTO;
+    private Reservation reservation;
     
     private ScheduleDTO scheduleDTO;
     private Schedule schedule;
 
     private Long id;
     private TennisCourtDTO tenniscourtDTO;
-    private TennisCourt tenniscourt;
-    private ReservationDTO reservationDTO;
-    private Reservation reservation;
+    
     private CreateReservationRequestDTO createReservationRequestDTO;
     private List<ScheduleDTO> schedulesDTO;
     private Long scheduleId;
@@ -122,15 +119,16 @@ public class ReservationServiceTest {
         reservation.setId(id);
         reservation.setSchedule(schedule);
         reservation.getSchedule().setId(rd.nextLong());
-        reservation.setGuest(new Guest() {{
-            setId(rd.nextLong());
+        reservation.setGuest(new Guest() {{setId(rd.nextLong());
         }});
-        createReservationRequestDTO = new CreateReservationRequestDTO();
-        createReservationRequestDTO.setGuestId(rd.nextLong());
-        createReservationRequestDTO.setScheduleId(rd.nextLong());
+        
         schedulesDTO = range(0, rd.nextInt(5))
             .mapToObj(i -> new ScheduleDTO())
             .collect(Collectors.toList());
+        
+        createReservationRequestDTO = new CreateReservationRequestDTO();
+        createReservationRequestDTO.setGuestId(rd.nextLong());
+        createReservationRequestDTO.setScheduleId(rd.nextLong());
         ScheduleDTO scheduleDTO = new ScheduleDTO();
         scheduleDTO.setId(createReservationRequestDTO.getScheduleId());
         schedulesDTO.add(scheduleDTO);
@@ -147,14 +145,14 @@ public class ReservationServiceTest {
         when(reservationMapper.map(any(Reservation.class))).thenReturn(reservationDTO);
         when(reservationMapper.map(any(CreateReservationRequestDTO.class))).thenReturn(reservation);
 
-        final ReservationDTO actual = reservationService.bookReservation(createReservationRequestDTO);
-        System.out.println(actual);
+        final ReservationDTO result = reservationService.bookReservation(createReservationRequestDTO);
+
         verify(scheduleService).findAllSchedules();
         verify(reservationRepository).saveAndFlush(reservation);
         verify(reservationMapper).map(reservation);
         verify(reservationMapper).map(createReservationRequestDTO);
-        System.out.println(reservationDTO);
-        assertEquals(reservationDTO, actual);
+
+        assertEquals(reservationDTO, result);
     }
 
     @Test
