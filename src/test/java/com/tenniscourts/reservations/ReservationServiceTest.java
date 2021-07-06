@@ -156,7 +156,7 @@ public class ReservationServiceTest {
     }
 
     @Test
-    public void getRefundValueFullRefund() {
+    public void getRefundValue() {
         Schedule schedule = new Schedule();
 
         LocalDateTime startDateTime = LocalDateTime.now().plusHours(15);
@@ -167,6 +167,22 @@ public class ReservationServiceTest {
         Assert.assertEquals(reservationService.getRefundValue(Reservation.builder().schedule(schedule).value(new BigDecimal(10L)).build()), BigDecimal.valueOf((double)7.50));
       
     } 
+    @Test
+    public void cancelres()
+    {
+    	Random rd = new Random();
+        Schedule sch = new Schedule();
+        Reservation res =  new Reservation();
+        reservation.setReservationStatus(ReservationStatus.CANCELLED);
+
+        LocalDateTime startDateTime = LocalDateTime.now().minusHours(5);
+        sch.setStartDateTime(startDateTime);
+        reservation.getSchedule().setStartDateTime(startDateTime);
+        ReservationDTO s= new ReservationDTO();
+        CreateReservationRequestDTO a = new CreateReservationRequestDTO(rd.nextLong(),rd.nextLong());
+        s = reservationService.bookReservation(a);
+        //Assert.assertEquals(reservationService.cancelReservation(),s);
+    }
     
     
 }
