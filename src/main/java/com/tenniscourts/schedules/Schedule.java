@@ -41,8 +41,33 @@ public class Schedule extends BaseEntity<Long> {
     @Column
     @NotNull
     private LocalDateTime endDateTime;
+    
+    
+    public LocalDateTime getStartDateTime() {
+		return startDateTime;
+	}
 
-    @OneToMany
+	public void setStartDateTime(LocalDateTime startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+
+	public LocalDateTime getEndDateTime() {
+		return endDateTime;
+	}
+
+	public void setEndDateTime(LocalDateTime endDateTime) {
+		this.endDateTime = endDateTime;
+	}
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
+	@OneToMany
     private List<Reservation> reservations;
 
     public void addReservation(Reservation reservation) {
