@@ -52,6 +52,15 @@ public class ScheduleController extends BaseRestController {
     public ResponseEntity<ScheduleDTO> findByScheduleId(Long scheduleId) {
         return ResponseEntity.ok(scheduleService.findSchedule(scheduleId));
     }
+	
+    @ApiOperation(value="Finds all Schedules",notes="Finds all Schedules available")
+	@ApiResponses(value = {
+	        @ApiResponse(code = 200, message = "Search Successfull")})
+    @GetMapping("/all")
+    public ResponseEntity<List<ScheduleDTO>> findAvailableSchedules() {
+
+        return ResponseEntity.ok(scheduleService.findAllSchedules());
+    }
 //	@GetMapping("/{id}")
  //   public ResponseEntity<List<ScheduleDTO>> findSchedulesByTennisCourtId(Long tennisCourtId){
 //		return ResponseEntity.ok(scheduleService.findSchedulesByTennisCourtId(tennisCourtId));

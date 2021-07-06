@@ -1,13 +1,14 @@
 package com.tenniscourts.guests;
 
 import com.tenniscourts.exceptions.EntityNotFoundException;
-import com.tenniscourts.reservations.Reservation;
+
 
 import lombok.AllArgsConstructor;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,7 @@ public class GuestService {
 	private final GuestRepository guestRepository;
         
 	@Autowired
+	@Qualifier("GuestMapper")
     private final GuestMapper guestMapper;
 
 
